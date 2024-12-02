@@ -13,7 +13,7 @@ namespace JingleJam2024 {
 // Hello this is my test comment, I hope you like it! :)
 
 		public Main() {
-			Program.Input.Add(GameControl.Left, new VirtualKey(Keys.A, Keys.Left));
+			Program.Input.Add(GameControl.Left, new VirtualKey(Keys.A, Keys.Left, Keys.T));
 			Program.Input.Add(GameControl.Right, new VirtualKey(Keys.D, Keys.Right));
 			Program.Input.Add(GameControl.Up, new VirtualKey(Keys.W, Keys.Up));
 			Program.Input.Add(GameControl.Down, new VirtualKey(Keys.S, Keys.Down));
