@@ -28,8 +28,10 @@ namespace JingleJam2024.entity.player {
 				NearCollisions.Add(c);
 			}
 
-			while (Math.Abs(speed.X) >= 1) {
-				var step = Math.Sign(speed.X);
+			while (Math.Abs(speed.X) > 0) {
+				float step = Math.Sign(speed.X);
+				if (Math.Abs(speed.X) < 1) step = speed.X;
+
 				if (CheckCollision(new Vector2(center.X + step, center.Y))) {
 					p.TrueX = (int)p.TrueX;
 					speed.X = 0;
@@ -39,22 +41,11 @@ namespace JingleJam2024.entity.player {
 				center.X += step;
 				p.TrueX += step;
 			}
-			if (speed.X != 0) {
-				if ((int)(p.TrueX + speed.X) != (int)p.TrueX) {
-					var step = Math.Sign(speed.X);
-					if (CheckCollision(new Vector2(center.X + step, center.Y))) {
-						p.TrueX = (int)p.TrueX;
-					} else {
-						p.TrueX += speed.X;
-						center.X += step;
-					}
-				} else {
-					p.TrueX += speed.X;
-				}
-			}
 
-			while (Math.Abs(speed.Y) >= 1) {
-				var step = Math.Sign(speed.Y);
+			while (Math.Abs(speed.Y) > 0) {
+				float step = Math.Sign(speed.Y);
+				if (Math.Abs(speed.Y) < 1) step = speed.Y;
+
 				if (CheckCollision(new Vector2(center.X, center.Y + step))) {
 					p.TrueY = (int)p.TrueY;
 					break;
