@@ -16,6 +16,14 @@ namespace JingleJam2024.entity.player {
 		private List<TileData> NearCollisions = new();
 
 		public void Move(Player p, Vector2 speed) {
+			if (speed == Vector2.Zero) return;
+
+			float xdec = p.TrueX - (int)p.TrueX;
+			float ydec = p.TrueY - (int)p.TrueY;
+			speed = new Vector2(speed.X + xdec, speed.Y + ydec);
+			p.TrueX = (int)p.TrueX + (speed.X - (int)speed.X);
+			p.TrueY = (int)p.TrueY + (speed.Y - (int)speed.Y);
+
 			var center = new Vector2(p.TrueX + p.Size.X / 2, p.TrueY + p.Size.Y / 2);
 			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 4;
 			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
@@ -26,42 +34,28 @@ namespace JingleJam2024.entity.player {
 				NearCollisions.Add(c);
 			}
 
-			while (speed.X >= 1) {
-				if (CheckCollision(new Vector2(center.X + 1, center.Y))) {
+			while (Math.Abs(speed.X) >= 1) {
+				var step = Math.Sign(speed.X);
+				if (CheckCollision(new Vector2(center.X + step, center.Y))) {
 					p.TrueX = (int)p.TrueX;
 					break;
 				}
-				speed.X--;
-				center.X++;
-				p.X++;
+				speed.X -= step;
+				center.X += step;
+				p.TrueX += step;
 			}
-			while (speed.X <= -1) {
-				if (CheckCollision(new Vector2(center.X - 1, center.Y))) {
-					p.TrueX = (int)p.TrueX;
-					break;
-				}
-				speed.X++;
-				center.X--;
-				p.X--;
-			}
-			while (speed.Y >= 1) {
-				if (CheckCollision(new Vector2(center.X, center.Y + 1))) {
+			while (Math.Abs(speed.Y) >= 1) {
+				var step = Math.Sign(speed.Y);
+				if (CheckCollision(new Vector2(center.X, center.Y + step))) {
 					p.TrueY = (int)p.TrueY;
 					break;
 				}
-				speed.Y--;
-				center.Y++;
-				p.Y++;
+				speed.Y -= step;
+				center.Y += step;
+				p.TrueY += step;
 			}
-			while (speed.Y <= -1) {
-				if (CheckCollision(new Vector2(center.X, center.Y - 1))) {
-					p.TrueY = (int)p.TrueY;
-					break;
-				}
-				speed.Y++;
-				center.Y--;
-				p.Y--;
-			}
+			p.X = (int)p.TrueX;
+			p.Y = (int)p.TrueY;
 		}
 
 		private bool CheckCollision(Vector2 center) {
@@ -76,15 +70,14 @@ namespace JingleJam2024.entity.player {
 
 
 		private bool CircleRectangleCollision(Vector2 circleCenter, float radius, Rectangle rectangle) {
-			// temporary variables to set edges for testing
 			float testX = circleCenter.X;
 			float testY = circleCenter.Y;
 
 			// which edge is closest?
-			if (circleCenter.X < rectangle.X) testX = rectangle.X;      // test left edge
-			else if (circleCenter.X > rectangle.Right) testX = rectangle.Right;   // right edge
-			if (circleCenter.Y < rectangle.Y) testY = rectangle.Y;      // top edge
-			else if (circleCenter.Y > rectangle.Bottom) testY = rectangle.Bottom;   // bottom edge
+			if (circleCenter.X < rectangle.X) testX = rectangle.X;  
+			else if (circleCenter.X > rectangle.Right) testX = rectangle.Right;  
+			if (circleCenter.Y < rectangle.Y) testY = rectangle.Y; 
+			else if (circleCenter.Y > rectangle.Bottom) testY = rectangle.Bottom;  
 
 			// get distance from closest edges
 			float distX = circleCenter.X - testX;
