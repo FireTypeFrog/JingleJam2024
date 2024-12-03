@@ -38,5 +38,9 @@ namespace JingleJam2024.entity.player {
 			Collider.Move(this, Speed);
 		}
 
+		public void DrawHitbox(Renderer r, Camera c) {
+			Collider.DrawHitbox(r, c);
+		}
+
 	}
 }

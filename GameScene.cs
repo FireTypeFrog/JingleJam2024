@@ -50,6 +50,7 @@ namespace JingleJam2024
 
 		public override void DrawHitboxes(Renderer r, Camera c) {
 			base.DrawHitboxes(r, c);
+			Player.DrawHitbox(r, c);
 		}
 
 		public override void PixelScaleChanged(int prevPixelScale, int newPixelScale) {

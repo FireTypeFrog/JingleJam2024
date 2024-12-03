@@ -14,6 +14,7 @@ namespace JingleJam2024.entity.player {
 		private const int HitboxSize = 6;
 
 		private List<TileData> NearCollisions = new();
+		private Rectangle VisualHitbox;
 
 		public void Move(Player p, Vector2 speed) {
 			if (speed == Vector2.Zero) return;
@@ -56,6 +57,8 @@ namespace JingleJam2024.entity.player {
 			}
 			p.X = (int)p.TrueX;
 			p.Y = (int)p.TrueY;
+
+			VisualHitbox = new Rectangle((int)(center.X - HitboxSize / 2), (int)(center.Y - HitboxSize / 2), HitboxSize, HitboxSize);
 		}
 
 		private bool CheckCollision(Vector2 center) {
@@ -89,6 +92,10 @@ namespace JingleJam2024.entity.player {
 				return true;
 			}
 			return false;
+		}
+
+		public void DrawHitbox(Renderer r, Camera c) {
+			r.DrawRect(VisualHitbox, Color.Red, c, Camera.Space.Pixel);
 		}
 
 	}
