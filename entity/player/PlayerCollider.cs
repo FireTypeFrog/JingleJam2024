@@ -18,13 +18,6 @@ namespace JingleJam2024.entity.player {
 		public void Move(Player p, Vector2 speed) {
 			if (speed == Vector2.Zero) return;
 
-			float xdec = p.TrueX - (int)p.TrueX;
-			float ydec = p.TrueY - (int)p.TrueY;
-			speed = new Vector2(speed.X + xdec, speed.Y + ydec);
-			p.TrueX = (int)p.TrueX + (speed.X - (int)speed.X);
-			p.TrueY = (int)p.TrueY + (speed.Y - (int)speed.Y);
-			speed = new Vector2((int)speed.X, (int)speed.Y);
-
 			var center = new Vector2(p.TrueX + p.Size.X / 2, p.TrueY + p.Size.Y / 2);
 			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 4;
 			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
@@ -39,12 +32,27 @@ namespace JingleJam2024.entity.player {
 				var step = Math.Sign(speed.X);
 				if (CheckCollision(new Vector2(center.X + step, center.Y))) {
 					p.TrueX = (int)p.TrueX;
+					speed.X = 0;
 					break;
 				}
 				speed.X -= step;
 				center.X += step;
 				p.TrueX += step;
 			}
+			if (speed.X != 0) {
+				if ((int)(p.TrueX + speed.X) != (int)p.TrueX) {
+					var step = Math.Sign(speed.X);
+					if (CheckCollision(new Vector2(center.X + step, center.Y))) {
+						p.TrueX = (int)p.TrueX;
+					} else {
+						p.TrueX += speed.X;
+						center.X += step;
+					}
+				} else {
+					p.TrueX += speed.X;
+				}
+			}
+
 			while (Math.Abs(speed.Y) >= 1) {
 				var step = Math.Sign(speed.Y);
 				if (CheckCollision(new Vector2(center.X, center.Y + step))) {
@@ -75,10 +83,10 @@ namespace JingleJam2024.entity.player {
 			float testY = circleCenter.Y;
 
 			// which edge is closest?
-			if (circleCenter.X < rectangle.X) testX = rectangle.X;  
-			else if (circleCenter.X > rectangle.Right) testX = rectangle.Right;  
-			if (circleCenter.Y < rectangle.Y) testY = rectangle.Y; 
-			else if (circleCenter.Y > rectangle.Bottom) testY = rectangle.Bottom;  
+			if (circleCenter.X < rectangle.X) testX = rectangle.X;
+			else if (circleCenter.X > rectangle.Right) testX = rectangle.Right;
+			if (circleCenter.Y < rectangle.Y) testY = rectangle.Y;
+			else if (circleCenter.Y > rectangle.Bottom) testY = rectangle.Bottom;
 
 			// get distance from closest edges
 			float distX = circleCenter.X - testX;
