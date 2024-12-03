@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Toybox;
 using Toybox.rendermodels;
 using Toybox.scenes;
+using Toybox.tiled;
 using Toybox.utils.input;
 using Toybox.utils.text;
 
@@ -27,11 +28,16 @@ namespace JingleJam2024 {
 			Camera = new Camera(GraphicsDevice, new Fit(630, 340), 3) { ClearColor = new Color(32, 18, 8) };
 
 			Program.Font = new Font(Content.Load<Texture2D>("rainyhearts"), Font.FontStandard, '?', new Rectangle(0, 3, 1, 1));
+			
+			var tiled = new TiledFile(Content.RootDirectory, "maps/map.tmx");
+			Program.Scene = new GameScene();
+			tiled.TryGetTilemap("graphic", out var tilemap);
+			Program.Scene.GraphicMap = tilemap;
+			tiled.TryGetObjects("spawns", out var spawns);
+			Program.Scene.Spawns = spawns;
 		}
 
 		protected override void Init() {
-			Program.Scene = new GameScene();
-
 			Program.Scene.Init();
 		}
 
