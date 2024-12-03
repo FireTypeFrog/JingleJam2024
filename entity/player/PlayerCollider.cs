@@ -16,9 +16,9 @@ namespace JingleJam2024.entity.player {
 		private List<TileData> NearCollisions = new();
 
 		public void Move(Player p, Vector2 speed) {
-			var center = new Vector2(p.X + p.Size.X / 2, p.Y + p.Size.Y / 2);
-			var diameter = HitboxSize + Math.Abs((int)speed.Length());
-			var hitbox = new Rectangle((int)center.X - (diameter + 1) / 2, (int)center.Y - (diameter + 1) / 2, diameter + 1, diameter + 1);
+			var center = new Vector2(p.TrueX + p.Size.X / 2, p.TrueY + p.Size.Y / 2);
+			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 4;
+			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
 			NearCollisions.Clear();
 
 			foreach (var c in Program.Scene.GraphicMap.GetCollisionsSubpixel(hitbox, Resources.Camera)) {
@@ -26,36 +26,39 @@ namespace JingleJam2024.entity.player {
 				NearCollisions.Add(c);
 			}
 
-			var dist = speed.ToPoint();
-			while (dist.X > 0) {
+			while (speed.X >= 1) {
 				if (CheckCollision(new Vector2(center.X + 1, center.Y))) {
+					p.TrueX = (int)p.TrueX;
 					break;
 				}
-				dist.X--;
+				speed.X--;
 				center.X++;
 				p.X++;
 			}
-			while (dist.X < 0) {
+			while (speed.X <= -1) {
 				if (CheckCollision(new Vector2(center.X - 1, center.Y))) {
+					p.TrueX = (int)p.TrueX;
 					break;
 				}
-				dist.X++;
+				speed.X++;
 				center.X--;
 				p.X--;
 			}
-			while (dist.Y > 0) {
+			while (speed.Y >= 1) {
 				if (CheckCollision(new Vector2(center.X, center.Y + 1))) {
+					p.TrueY = (int)p.TrueY;
 					break;
 				}
-				dist.Y--;
+				speed.Y--;
 				center.Y++;
 				p.Y++;
 			}
-			while (dist.Y < 0) {
+			while (speed.Y <= -1) {
 				if (CheckCollision(new Vector2(center.X, center.Y - 1))) {
+					p.TrueY = (int)p.TrueY;
 					break;
 				}
-				dist.Y++;
+				speed.Y++;
 				center.Y--;
 				p.Y--;
 			}
