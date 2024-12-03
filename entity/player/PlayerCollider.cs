@@ -23,6 +23,7 @@ namespace JingleJam2024.entity.player {
 			speed = new Vector2(speed.X + xdec, speed.Y + ydec);
 			p.TrueX = (int)p.TrueX + (speed.X - (int)speed.X);
 			p.TrueY = (int)p.TrueY + (speed.Y - (int)speed.Y);
+			speed = new Vector2((int)speed.X, (int)speed.Y);
 
 			var center = new Vector2(p.TrueX + p.Size.X / 2, p.TrueY + p.Size.Y / 2);
 			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 4;
