@@ -19,8 +19,8 @@ namespace JingleJam2024.entity.player {
 		public void Move(Player p, Vector2 speed) {
 			if (speed == Vector2.Zero) return;
 
-			var center = new Vector2(p.TrueX + p.Size.X / 2, p.TrueY + p.Size.Y / 2);
-			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 4;
+			var center = new Vector2(p.TrueX, p.TrueY);
+			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 6;
 			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
 			NearCollisions.Clear();
 
@@ -32,8 +32,10 @@ namespace JingleJam2024.entity.player {
 			while (Math.Abs(speed.X) > 0) {
 				float step = Math.Sign(speed.X);
 				if (Math.Abs(speed.X) < 1) step = speed.X;
+				float check = center.X + step;
+				if (step < 0) check = center.X - 2;
 
-				if (CheckCollision(new Vector2(center.X + step, center.Y))) {
+				if (CheckCollision(new Vector2(check, center.Y))) {
 					p.TrueX = (int)p.TrueX;
 					speed.X = 0;
 					break;
@@ -46,8 +48,10 @@ namespace JingleJam2024.entity.player {
 			while (Math.Abs(speed.Y) > 0) {
 				float step = Math.Sign(speed.Y);
 				if (Math.Abs(speed.Y) < 1) step = speed.Y;
+				float check = center.Y + step;
+				if (step < 0) check = center.Y - 2;
 
-				if (CheckCollision(new Vector2(center.X, center.Y + step))) {
+				if (CheckCollision(new Vector2(center.X, check))) {
 					p.TrueY = (int)p.TrueY;
 					break;
 				}
