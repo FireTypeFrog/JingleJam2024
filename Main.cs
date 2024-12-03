@@ -25,7 +25,7 @@ namespace JingleJam2024 {
 		protected override void LoadContent() {
 			base.LoadContent();
 
-			Camera = new Camera(GraphicsDevice, new Fit(630, 340), 3) { ClearColor = new Color(32, 18, 8) };
+			Camera = new Camera(GraphicsDevice, new Fit(630, 340), 3) { ClearColor = new Color(0, 0, 0) };
 
 			Program.Font = new Font(Content.Load<Texture2D>("rainyhearts"), Font.FontStandard, '?', new Rectangle(0, 3, 1, 1));
 			

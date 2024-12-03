@@ -1,4 +1,4 @@
-﻿using JingleJam2024.entity;
+﻿using JingleJam2024.entity.player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,9 @@ using Toybox.maps.tiles;
 using Toybox.scenes;
 using Toybox.tiled;
 
-namespace JingleJam2024 {
-	public class GameScene:Scene {
+namespace JingleJam2024
+{
+    public class GameScene:Scene {
 
 		public Player Player;
 		public Tilemap GraphicMap;
@@ -25,8 +26,8 @@ namespace JingleJam2024 {
 			foreach (var spawn in Spawns) {
 				spawn.Position = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, spawn.Position);
 				if (spawn.Name == "player") {
-					Player.TrueX = spawn.Position.X;
-					Player.TrueY = spawn.Position.Y;
+					Player.TrueX = Player.X = spawn.Position.X;
+					Player.TrueY = Player.Y = spawn.Position.Y;
 					continue;
 				}
 			}
