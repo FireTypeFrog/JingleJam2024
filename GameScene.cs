@@ -18,10 +18,13 @@ namespace JingleJam2024
 		public Player Player;
 		public PresentSpawner Park;
 		public Tilemap GraphicMap;
+		public Tilemap MechMap;
 		public List<TiledObject> Spawns;
+		public MoneyDisplay MoneyDisplay;
 
 		public GameScene() {
 			Player = new Player();
+			MoneyDisplay = new MoneyDisplay(Program.Font);
 		}
 
 		public override void Init() {
@@ -45,6 +48,8 @@ namespace JingleJam2024
 
 			Resources.Camera.X = Player.X - Resources.Camera.Width / 2;
 			Resources.Camera.Y = Player.Y - Resources.Camera.Height / 2;
+
+			Program.State.Money -= Constants.MoneyLossPerTick;
 		}
 
 		public override void PostUpdate() {
@@ -54,6 +59,7 @@ namespace JingleJam2024
 			GraphicMap.Draw(r, c);
 			Park.Draw(r, c);
 			Player.Draw(r, c);
+			MoneyDisplay.Draw(r, c);
 		}
 
 		public override void DrawHitboxes(Renderer r, Camera c) {

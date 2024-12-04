@@ -36,6 +36,8 @@ namespace JingleJam2024 {
 			Program.Scene.GraphicMap = tilemap;
 			tiled.TryGetObjects("spawns", out var spawns);
 			Program.Scene.Spawns = spawns;
+			tiled.TryGetTilemap("mech", out var mech);
+			Program.Scene.MechMap = mech;
 		}
 
 		protected override void Init() {

@@ -28,10 +28,12 @@ namespace JingleJam2024.entity.player {
 
 		public void Update() {
 			Pos += Speed;
-			foreach (var c in Program.Scene.GraphicMap.GetCollisionsSubpixel(Bounds, Resources.Camera)) {
-				c.Bounds = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, c.Bounds);
-				if (c.Bounds.Intersects(Bounds)) {
+			foreach (var c in Program.Scene.MechMap.GetCollisionsSubpixel(Bounds, Resources.Camera)) {
+				if (Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, c.Bounds).Intersects(Bounds)) {
 					DestroyMe = true;
+					if (c.Tile.Id == Constants.TargetTile) {
+						HitTarget(c.Bounds.Location);
+					}
 				}
 			}
 		}
@@ -40,6 +42,12 @@ namespace JingleJam2024.entity.player {
 			get {
 				return new Rectangle(Pos.ToPoint(), Size);
 			}
+		}
+
+		private void HitTarget(Point pos) {
+			Program.Scene.MechMap.Set(pos.X, pos.Y, new Tilemap.Tile(Constants.SolidTile, Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
+			Program.Scene.GraphicMap.Set(pos.X, pos.Y, new Tilemap.Tile(Constants.ClosedDoor, Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
+			Program.State.Money += Constants.DoorMoney;
 		}
 
 	}

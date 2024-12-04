@@ -25,6 +25,14 @@ namespace JingleJam2024 {
 			if (c.Type == (int)CollisionType.Solid) return true;
 			return false;
 		}
+
+		public static Point SolidTile = new Point(0, 0);
+		public static Point TargetTile = new Point(1, 0);
+		public static Point OpenDoor = new Point(1, 0);
+		public static Point ClosedDoor = new Point(0, 0);
+
+		public const int DoorMoney = 10;
+		public const float MoneyLossPerTick = 0.01f;
 	}
 
 }

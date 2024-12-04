@@ -9,6 +9,7 @@ public static class Program {
 
 	public static GameScene Scene;
 	public static GameInputManager<GameControl> Input = new GameInputManager<GameControl>();
+	public static GameState State = new GameState();
 
 	private static void Main(string[] args) {
 		using var game = new JingleJam2024.Main();
