@@ -13,7 +13,6 @@ namespace JingleJam2024.entity.player {
 		public int MaxLength = 3;
 		public Point PickupSize = new Point(30, 30);
 		private Point PickupZonePos;
-		private const int MinDistanceFromPlayer = 10;
 
 		private List<Point> PlayerPositions = new();
 		private const int FramesBetweenPositions = 10;
@@ -31,6 +30,12 @@ namespace JingleJam2024.entity.player {
 			UpdatePlayerPositions(p);
 
 			for (int i = 0; i < Content.Count; i++) {
+				if (Content[i].DestroyMe) {
+					Content.RemoveAt(i);
+					i--;
+					continue;
+				}
+
 				var pos = (i + 1) * FramesBetweenPositions;
 				var target = PlayerPositions[0];
 				if (pos < PlayerPositions.Count) {

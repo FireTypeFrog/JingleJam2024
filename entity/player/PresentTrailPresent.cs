@@ -15,6 +15,7 @@ namespace JingleJam2024.entity.player {
 		public int X, Y;
 		private int TweenTimer = 0;
 		private Point TweenStart;
+		public bool DestroyMe = false;
 
 		private static StaticTween Tween = new StaticTween(EasingFunctions.InOutBounce, 30);
 
