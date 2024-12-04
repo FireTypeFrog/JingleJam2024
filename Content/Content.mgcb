@@ -13,9 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin maps/map.tmx
-/copy:maps/map.tmx
-
 #begin maps/tiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
