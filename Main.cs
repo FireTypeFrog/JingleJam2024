@@ -16,6 +16,7 @@ namespace JingleJam2024 {
 			Program.Input.Add(GameControl.Right, new VirtualKey(Keys.D, Keys.Right));
 			Program.Input.Add(GameControl.Up, new VirtualKey(Keys.W, Keys.Up));
 			Program.Input.Add(GameControl.Down, new VirtualKey(Keys.S, Keys.Down));
+			IsFixedTimeStep = true;
         }
 
 		public override Scene GetActiveScene() {
