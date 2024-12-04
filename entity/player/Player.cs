@@ -24,6 +24,7 @@ namespace JingleJam2024.entity.player {
 		public PlayerCollider Collider = new();
 		public PresentTrail Trail = new();
 		public PresentShooter Shooter = new();
+		public PlayerBumper Bumper = new();
 
 		public Player() {
 		}
@@ -44,11 +45,19 @@ namespace JingleJam2024.entity.player {
 			Collider.Move(this, Speed);
 			Trail.Update(this);
 			Shooter.Update(this);
+			Bumper.Update(this);
 		}
 
 		public void DrawHitbox(Renderer r, Camera c) {
 			Collider.DrawHitbox(r, c);
 			Trail.DrawHitbox(r, c);
+			r.DrawRect(BumpHitbox, Color.DarkRed * 0.5f, c, Camera.Space.Pixel);
+		}
+
+		public Rectangle BumpHitbox {
+			get {
+				return new Rectangle(X - Constants.PlayerBumpHitbox / 2, Y - Constants.PlayerBumpHitbox / 2, Constants.PlayerBumpHitbox, Constants.PlayerBumpHitbox);
+			}
 		}
 
 	}

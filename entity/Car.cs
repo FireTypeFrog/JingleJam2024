@@ -33,6 +33,7 @@ namespace JingleJam2024.entity {
 
 			var tile = GetTileCollision();
 			CollideTile(tile);
+			CollidePlayer();
 		}
 
 		public void Init() {
@@ -150,6 +151,20 @@ namespace JingleJam2024.entity {
 
 		public void DrawHitbox(Renderer r, Camera c) {
 			r.DrawRect(Bounds, Color.DarkRed, c, Camera.Space.Pixel);
+			r.DrawRect(BumpHitbox, Color.Red * 0.5f, c, Camera.Space.Pixel);
+		}
+
+		public void CollidePlayer() {
+			var bounds = BumpHitbox;
+			if (bounds.Intersects(Program.Scene.Player.BumpHitbox)) {
+				Program.Scene.Player.Bumper.Bump(Speed.ToVector2(), Program.Scene.Player);
+			}
+		}
+
+		public Rectangle BumpHitbox {
+			get {
+				return new Rectangle(Position.X - Constants.CarBumpHitbox / 2, Position.Y - Constants.CarBumpHitbox / 2, Constants.CarBumpHitbox, Constants.CarBumpHitbox);
+			}
 		}
 
 	}

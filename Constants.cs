@@ -42,8 +42,14 @@ namespace JingleJam2024 {
 
 		public const int DoorMoney = 10;
 		public const float MoneyLossPerTick = 0.01f;
+		public const int CarBumpMoneyLoss = 5;
 
 		public const int CarSpeed = 2;
+		public const int CarBumpTime = 50;
+		public const float CarBumpSpin = 0.1f;
+		public const int CarBumpHitbox = 10;
+
+		public const int PlayerBumpHitbox = 10;
 	}
 
 }

@@ -16,6 +16,10 @@ namespace JingleJam2024.entity.player {
 		private const float Decel = 0.05f;
 
 		public void Update(Player p) {
+			if (p.Bumper.BumpTimer > 0) {
+				return;
+			}
+
 			var speed = p.Speed.Length();
 
 			var speedAngle = (float)Math.Atan2(p.Speed.Y, p.Speed.X);

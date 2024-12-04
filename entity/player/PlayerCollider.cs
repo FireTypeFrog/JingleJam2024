@@ -102,5 +102,11 @@ namespace JingleJam2024.entity.player {
 			r.DrawRect(VisualHitbox, Color.Red, c, Camera.Space.Pixel);
 		}
 
+		public Rectangle Bounds {
+			get {
+				return VisualHitbox;
+			}
+		}
+
 	}
 }
