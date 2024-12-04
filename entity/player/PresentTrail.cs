@@ -31,7 +31,7 @@ namespace JingleJam2024.entity.player {
 			UpdatePlayerPositions(p);
 
 			for (int i = 0; i < Content.Count; i++) {
-				var pos = i * FramesBetweenPositions;
+				var pos = (i + 1) * FramesBetweenPositions;
 				var target = PlayerPositions[0];
 				if (pos < PlayerPositions.Count) {
 					target = PlayerPositions[pos];
@@ -43,11 +43,11 @@ namespace JingleJam2024.entity.player {
 		private void UpdatePlayerPositions(Player p) {
 			var pos = new Point(p.X, p.Y);
 
-			if (PlayerPositions.Count > 0 && pos == PlayerPositions.Last()) return;
+			if (PlayerPositions.Count > 0 && pos == PlayerPositions[0]) return;
 
-			PlayerPositions.Add(pos);
-			if (PlayerPositions.Count > MaxLength * FramesBetweenPositions) {
-				PlayerPositions.RemoveAt(0);
+			PlayerPositions.Insert(0, pos);
+			if (PlayerPositions.Count > (MaxLength + 1) * FramesBetweenPositions) {
+				PlayerPositions.RemoveAt(PlayerPositions.Count - 1);
 			}
 		}
 
