@@ -10,14 +10,15 @@ namespace JingleJam2024.entity.player {
 	public class PresentShooter {
 
 		public List<PresentProjectile> Content = new();
-		public float ProjectileSpeed = 3;
+		public float ProjectileSpeed = 6;
 
 		public PresentShooter() {
 		}
 
 		public void Update(Player p) {
 			if (Resources.MouseInput.LeftPress) {
-				ShootPresent(p, Resources.MouseInput.Position);
+				var mousepos = Resources.Camera.Project(Camera.Space.Screen, Camera.Space.Pixel, Resources.MouseInput.Position);
+				ShootPresent(p, mousepos);
 			}
 
 			for (int i = 0; i < Content.Count; i++) {
