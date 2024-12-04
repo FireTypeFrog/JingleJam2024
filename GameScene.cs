@@ -1,4 +1,5 @@
-﻿using JingleJam2024.entity.player;
+﻿using JingleJam2024.entity;
+using JingleJam2024.entity.player;
 using JingleJam2024.scene;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace JingleJam2024
 		public Tilemap MechMap;
 		public List<TiledObject> Spawns;
 		public MoneyDisplay MoneyDisplay;
+		public List<Car> Cars = new();
 
 		public GameScene() {
 			Player = new Player();
@@ -38,13 +40,22 @@ namespace JingleJam2024
 				} else if (spawn.Name == "park") {
 					Park = new PresentSpawner(spawn.Bounds);
 					continue;
+				} else if (spawn.Name == "car") {
+					Cars.Add(new Car(spawn.Position));
 				}
+			}
+
+			foreach (var car in Cars) {
+				car.Init();
 			}
 		}
 
 		public override void Update() {
 			Player.Update();
 			Park.Update();
+			foreach (var c in Cars) {
+				c.Update();
+			}
 
 			Resources.Camera.X = Player.X - Resources.Camera.Width / 2;
 			Resources.Camera.Y = Player.Y - Resources.Camera.Height / 2;
@@ -58,13 +69,20 @@ namespace JingleJam2024
 		public override void Draw(Renderer r, Camera c) {
 			GraphicMap.Draw(r, c);
 			Park.Draw(r, c);
+			foreach (var car in Cars) {
+				car.Draw(r, c);
+			}
 			Player.Draw(r, c);
 			MoneyDisplay.Draw(r, c);
 		}
 
 		public override void DrawHitboxes(Renderer r, Camera c) {
+			MechMap.Draw(r, c);
 			base.DrawHitboxes(r, c);
 			Player.DrawHitbox(r, c);
+			foreach (var car in Cars) {
+				car.DrawHitbox(r, c);
+			}
 		}
 
 		public override void PixelScaleChanged(int prevPixelScale, int newPixelScale) {

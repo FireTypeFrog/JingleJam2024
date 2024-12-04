@@ -30,7 +30,9 @@ namespace JingleJam2024.entity.player {
 			Pos += Speed;
 			foreach (var c in Program.Scene.MechMap.GetCollisionsSubpixel(Bounds, Resources.Camera)) {
 				if (Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, c.Bounds).Intersects(Bounds)) {
-					DestroyMe = true;
+					if (c.Tile.Id == Constants.SolidTile) {
+						DestroyMe = true;
+					}
 					if (c.Tile.Id == Constants.TargetTile) {
 						HitTarget(c.Bounds.Location);
 					}

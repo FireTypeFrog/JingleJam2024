@@ -28,11 +28,22 @@ namespace JingleJam2024 {
 
 		public static Point SolidTile = new Point(0, 0);
 		public static Point TargetTile = new Point(1, 0);
+		public static Point LeftTile = new Point(0, 1);
+		public static Point DownTile = new Point(1, 1);
+		public static Point UpLeftTile = new Point(2, 1);
+		public static Point UpRightTile = new Point(3, 1);
+		public static Point RightTile = new Point(0, 2);
+		public static Point UpTile = new Point(1, 2);
+		public static Point DownLeftTile = new Point(2, 2);
+		public static Point DownRightTile = new Point(3, 2);
+
 		public static Point OpenDoor = new Point(1, 0);
 		public static Point ClosedDoor = new Point(0, 0);
 
 		public const int DoorMoney = 10;
 		public const float MoneyLossPerTick = 0.01f;
+
+		public const int CarSpeed = 2;
 	}
 
 }
