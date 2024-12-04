@@ -22,6 +22,13 @@ namespace JingleJam2024.scene {
 		}
 
 		public void Update() {
+			for (int i = 0; i < Content.Count; i++) {
+				if (Content[i].DestroyMe) {
+					Content.RemoveAt(i);
+					i--;
+				}
+			}
+
 			Timer++;
 			if (Timer > TimeBetweenSpawns) {
 				if (Content.Count < MaxPresents) {
@@ -43,6 +50,15 @@ namespace JingleJam2024.scene {
 
 			p.X = Resources.Random.Next(Bounds.X, Bounds.Right - PresentPickup.Size);
 			p.Y = Resources.Random.Next(Bounds.Y, Bounds.Bottom - PresentPickup.Size);
+		}
+
+		public PresentPickup FindCollision(Rectangle pickupzone) {
+			foreach (var p in Content) {
+				if (p.Bounds.Intersects(pickupzone)) {
+					return p;
+				}
+			}
+			return null;
 		}
 
 	}

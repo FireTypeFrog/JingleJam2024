@@ -22,11 +22,14 @@ namespace JingleJam2024.entity.player {
 
 		public PlayerController Controller = new();
 		public PlayerCollider Collider = new();
+		public PresentTrail Trail = new();
 
 		public Player() {
 		}
 
 		public void Draw(Renderer r, Camera c) {
+			Trail.Draw(r, c);
+
 			var dest = new Rectangle(X, Y, Size.X, Size.Y);
 			var origin = new Vector2((float)r.Blank.Width / 2, (float)r.Blank.Height / 2);
 			dest = c.Project(Camera.Space.Pixel, Camera.Space.Render, dest);
@@ -36,10 +39,12 @@ namespace JingleJam2024.entity.player {
 		public void Update() {
 			Controller.Update(this);
 			Collider.Move(this, Speed);
+			Trail.Update(this);
 		}
 
 		public void DrawHitbox(Renderer r, Camera c) {
 			Collider.DrawHitbox(r, c);
+			Trail.DrawHitbox(r, c);
 		}
 
 	}
