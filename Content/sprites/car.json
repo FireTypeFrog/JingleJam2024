@@ -1,9 +1,9 @@
 { "frames": {
    "0": {
-    "frame": { "x": 0, "y": 0, "w": 7, "h": 13 },
+    "frame": { "x": 0, "y": 0, "w": 13, "h": 7 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 11, "y": 8, "w": 7, "h": 13 },
+    "spriteSourceSize": { "x": 7, "y": 11, "w": 13, "h": 7 },
     "sourceSize": { "w": 30, "h": 30 },
     "duration": 100
    }
@@ -13,7 +13,7 @@
   "version": "1.3.10.1-x64",
   "image": "car.png",
   "format": "RGBA8888",
-  "size": { "w": 7, "h": 13 },
+  "size": { "w": 13, "h": 7 },
   "scale": "1",
   "frameTags": [
   ],
