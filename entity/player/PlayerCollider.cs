@@ -24,7 +24,7 @@ namespace JingleJam2024.entity.player {
 			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
 			NearCollisions.Clear();
 
-			foreach (var c in Program.Scene.GraphicMap.GetCollisionsSubpixel(hitbox, Resources.Camera)) {
+			foreach (var c in Program.Scene.MechMap.GetCollisionsSubpixel(hitbox, Resources.Camera)) {
 				c.Bounds = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, c.Bounds);
 				NearCollisions.Add(c);
 			}

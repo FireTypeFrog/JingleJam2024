@@ -22,6 +22,8 @@ namespace JingleJam2024.scene {
 				}
 			}
 
+			if (spawnPoints.Count == 0) return;
+
 			for (int i = 0; i < num; i++) {
 				Spawn(s, spawnPoints);
 			}

@@ -35,7 +35,7 @@ namespace JingleJam2024 {
 			Program.Sprites.LoadDirectory(Path.Join(Content.RootDirectory, "sprites"));
 			Program.PlayerSprite = Content.Load<Texture2D>("sprites/sleigh");
 
-			var tiled = new TiledFile(Content.RootDirectory, "maps/map.tmx");
+			var tiled = new TiledFile(Content.RootDirectory, "maps/level1.tmx");
 			Program.Scene = new GameScene();
 			tiled.TryGetTilemap("graphic", out var tilemap);
 			Program.Scene.GraphicMap = tilemap;
