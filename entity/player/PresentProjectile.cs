@@ -50,7 +50,8 @@ namespace JingleJam2024.entity.player {
 
 		private void HitTarget(Point pos) {
 			Program.Scene.MechMap.Set(pos.X, pos.Y, new Tilemap.Tile(Constants.SolidTile, Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
-			Program.Scene.GraphicMap.Set(pos.X, pos.Y, new Tilemap.Tile(Constants.ClosedDoor, Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
+			var tile = Program.Scene.DoorMap.Get(pos);
+			Program.Scene.DoorMap.Set(pos.X, pos.Y, new Tilemap.Tile(new Point(tile.Value.Id.X + 2, tile.Value.Id.Y), Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
 			Program.State.Money += Constants.DoorMoney;
 		}
 

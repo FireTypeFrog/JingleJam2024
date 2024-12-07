@@ -1,6 +1,7 @@
 ﻿using JingleJam2024.entity;
 using JingleJam2024.entity.player;
 using JingleJam2024.scene;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,12 @@ namespace JingleJam2024
 {
     public class GameScene:Scene {
 
+		public Rectangle CamBounds;
 		public Player Player;
-		public PresentSpawner Park;
+		public PresentSpawner Spawner;
 		public Tilemap GraphicMap;
+		public Tilemap FloorMap;
+		public Tilemap DoorMap;
 		public Tilemap MechMap;
 		public List<TiledObject> Spawns;
 		public MoneyDisplay MoneyDisplay;
@@ -37,8 +41,9 @@ namespace JingleJam2024
 					Player.TrueX = Player.X = spawn.Position.X;
 					Player.TrueY = Player.Y = spawn.Position.Y;
 					continue;
-				} else if (spawn.Name == "park") {
-					Park = new PresentSpawner(spawn.Bounds);
+				} else if (spawn.Name == "bounds") {
+					Spawner = new PresentSpawner(spawn.Bounds);
+					CamBounds = spawn.Bounds;
 					continue;
 				} else if (spawn.Name == "car") {
 					//Cars.Add(new Car(spawn.Position));
@@ -57,13 +62,26 @@ namespace JingleJam2024
 
 		public override void Update() {
 			Player.Update();
-			Park.Update();
+			Spawner.Update();
 			foreach (var c in Cars) {
 				c.Update();
 			}
 
-			Resources.Camera.X = Player.X - Resources.Camera.Width / 2;
-			Resources.Camera.Y = Player.Y - Resources.Camera.Height / 2;
+			var cam = Resources.Camera;
+			cam.X = Player.X - cam.Width / 2;
+			cam.Y = Player.Y - cam.Height / 2;
+			if (cam.X < CamBounds.X) {
+				cam.X = CamBounds.X;
+			}
+			if (cam.Y < CamBounds.Y) {
+				cam.Y = CamBounds.Y;
+			}
+			if (cam.Bounds.Right > CamBounds.Right) {
+				cam.X = CamBounds.Right - cam.Bounds.Width;
+			}
+			if (cam.Bounds.Bottom > CamBounds.Bottom) {
+				cam.Y = CamBounds.Bottom - cam.Bounds.Height;
+			}
 
 			Program.State.Money -= Constants.MoneyLossPerTick;
 		}
@@ -72,8 +90,10 @@ namespace JingleJam2024
 		}
 
 		public override void Draw(Renderer r, Camera c) {
+			FloorMap.Draw(r, c);
 			GraphicMap.Draw(r, c);
-			Park.Draw(r, c);
+			DoorMap.Draw(r, c);
+			Spawner.Draw(r, c);
 			foreach (var car in Cars) {
 				car.Draw(r, c);
 			}

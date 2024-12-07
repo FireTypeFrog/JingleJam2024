@@ -43,6 +43,10 @@ namespace JingleJam2024 {
 			Program.Scene.Spawns = spawns;
 			tiled.TryGetTilemap("mech", out var mech);
 			Program.Scene.MechMap = mech;
+			tiled.TryGetTilemap("doors", out var doors);
+			Program.Scene.DoorMap = doors;
+			tiled.TryGetTilemap("floor", out var floor);
+			Program.Scene.FloorMap = floor;
 		}
 
 		protected override void Init() {

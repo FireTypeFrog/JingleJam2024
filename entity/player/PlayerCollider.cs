@@ -25,7 +25,7 @@ namespace JingleJam2024.entity.player {
 			NearCollisions.Clear();
 
 			foreach (var c in Program.Scene.MechMap.GetCollisionsSubpixel(hitbox, Resources.Camera)) {
-				if (c.Tile.Id != Constants.SolidTile && c.Tile.Id != Constants.OpenDoor) continue;
+				if (c.Tile.Id != Constants.SolidTile && c.Tile.Id != Constants.TargetTile) continue;
 				c.Bounds = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, c.Bounds);
 				NearCollisions.Add(c);
 			}

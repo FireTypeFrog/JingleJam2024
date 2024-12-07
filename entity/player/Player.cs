@@ -66,14 +66,14 @@ namespace JingleJam2024.entity.player {
 		}
 
 		public void DrawHitbox(Renderer r, Camera c) {
-			Collider.DrawHitbox(r, c);
-			Trail.DrawHitbox(r, c);
-			r.DrawRect(BumpHitbox, Color.DarkRed * 0.5f, c, Camera.Space.Pixel);
-
 			var dest = new Rectangle(X, Y, Size.X * c.PixelScale, Size.Y * c.PixelScale);
 			var origin = new Vector2((float)r.Blank.Width / 2, (float)r.Blank.Width / 2);
 			dest = c.Project(Camera.Space.Pixel, Camera.Space.Render, dest);
-			r.Batch.Draw(r.Blank, dest, null, Color.White, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+			r.Batch.Draw(r.Blank, dest, null, Color.Gray * 0.5f, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+
+			Collider.DrawHitbox(r, c);
+			Trail.DrawHitbox(r, c);
+			r.DrawRect(BumpHitbox, Color.DarkRed * 0.5f, c, Camera.Space.Pixel);
 		}
 
 		public Rectangle BumpHitbox {

@@ -37,9 +37,6 @@ namespace JingleJam2024 {
 		public static Point DownLeftTile = new Point(2, 2);
 		public static Point DownRightTile = new Point(3, 2);
 
-		public static Point OpenDoor = new Point(1, 0);
-		public static Point ClosedDoor = new Point(0, 0);
-
 		public const int DoorMoney = 10;
 		public const float MoneyLossPerTick = 0.01f;
 		public const int CarBumpMoneyLoss = 5;
@@ -49,7 +46,7 @@ namespace JingleJam2024 {
 		public const float CarBumpSpin = 0.1f;
 		public const int CarBumpHitbox = 10;
 
-		public const int PlayerBumpHitbox = 10;
+		public const int PlayerBumpHitbox = 16;
 	}
 
 }

@@ -24,17 +24,20 @@ namespace JingleJam2024.entity {
 
 		private Point LastTileCollision;
 		private int TileCollisionShrink = 7;
+		private static int NextId = 0;
+		private int Id;
 
 		public Car(Point pos) {
 			Position = pos;
 			if (Graphic == null) {
 				Graphic = Program.Sprites["car"];
 			}
+			Id = NextId;
+			NextId++;
 		}
 
 		public void Update() {
 			Position += Speed;
-			//Angle = (float)Math.Atan2(Speed.Y, Speed.X);
 
 			var tile = GetTileCollision();
 			CollideTile(tile);

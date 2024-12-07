@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toybox;
+using Toybox.maps.tiles;
 
 namespace JingleJam2024.scene {
 	public class PresentSpawner {
 
-		private const int MaxPresents = 10;
-		private const int TimeBetweenSpawns = 100;
+		private const int MaxPresents = 50;
+		private const int TimeBetweenSpawns = 50;
 
 		public List<PresentPickup> Content = new();
 		public int Timer = 0;
@@ -48,8 +49,17 @@ namespace JingleJam2024.scene {
 			var p = new PresentPickup();
 			Content.Add(p);
 
-			p.X = Resources.Random.Next(Bounds.X, Bounds.Right - PresentPickup.Size);
-			p.Y = Resources.Random.Next(Bounds.Y, Bounds.Bottom - PresentPickup.Size);
+			while (true) {
+				p.X = Resources.Random.Next(Bounds.X, Bounds.Right - PresentPickup.Size);
+				p.Y = Resources.Random.Next(Bounds.Y, Bounds.Bottom - PresentPickup.Size);
+				bool good = true;
+				var bounds = p.Bounds;
+				bounds.Inflate(20, 20);
+				foreach (var col in Program.Scene.MechMap.GetCollisionsSubpixel(bounds, Resources.Camera)) {
+					if (col.Tile.Id == Constants.SolidTile || col.Tile.Id == Constants.TargetTile) good = false;
+				}
+				if (good) break;
+			}
 		}
 
 		public PresentPickup FindCollision(Rectangle pickupzone) {
