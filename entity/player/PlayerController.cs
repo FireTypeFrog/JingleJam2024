@@ -56,7 +56,7 @@ namespace JingleJam2024.entity.player {
 			p.Speed = new Vector2(xspeed, yspeed);
 		}
 
-		private float NormalizeAngle(float r) {
+		public float NormalizeAngle(float r) {
 			var twopi = Math.PI + Math.PI;
 			var result = r % twopi;
 			if (result > 0) return (float)result;

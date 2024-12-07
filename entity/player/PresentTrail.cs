@@ -16,6 +16,7 @@ namespace JingleJam2024.entity.player {
 
 		private List<Point> PlayerPositions = new();
 		private const int FramesBetweenPositions = 10;
+		private const int PlayerStartDist = 5;
 
 		public PresentTrail() {
 		}
@@ -36,7 +37,7 @@ namespace JingleJam2024.entity.player {
 					continue;
 				}
 
-				var pos = (i + 1) * FramesBetweenPositions;
+				var pos = ((i + 1) * FramesBetweenPositions) + PlayerStartDist;
 				var target = PlayerPositions[0];
 				if (pos < PlayerPositions.Count) {
 					target = PlayerPositions[pos];
@@ -51,7 +52,7 @@ namespace JingleJam2024.entity.player {
 			if (PlayerPositions.Count > 0 && pos == PlayerPositions[0]) return;
 
 			PlayerPositions.Insert(0, pos);
-			if (PlayerPositions.Count > (MaxLength + 1) * FramesBetweenPositions) {
+			if (PlayerPositions.Count > ((MaxLength + 1) * FramesBetweenPositions) + PlayerStartDist) {
 				PlayerPositions.RemoveAt(PlayerPositions.Count - 1);
 			}
 		}

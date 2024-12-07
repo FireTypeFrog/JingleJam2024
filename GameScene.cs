@@ -26,11 +26,16 @@ namespace JingleJam2024
 		public Tilemap MechMap;
 		public List<TiledObject> Spawns;
 		public MoneyDisplay MoneyDisplay;
+		public DoorDisplay DoorDisplay;
+		public LevelDisplay LevelDisplay;
 		public List<Car> Cars = new();
+		public List<FloatingText> FloatingText = new();
 
 		public GameScene() {
 			Player = new Player();
 			MoneyDisplay = new MoneyDisplay(Program.Font);
+			DoorDisplay = new DoorDisplay(Program.Font);
+			LevelDisplay = new LevelDisplay(Program.Font);
 		}
 
 		public override void Init() {
@@ -58,6 +63,7 @@ namespace JingleJam2024
 			}
 
 			Player.Init();
+			DoorDisplay.CountDoors(MechMap);
 		}
 
 		public override void Update() {
@@ -84,6 +90,13 @@ namespace JingleJam2024
 			}
 
 			Program.State.Money -= Constants.MoneyLossPerTick;
+			for (int i = 0; i < FloatingText.Count; i++) {
+				FloatingText[i].Update();
+				if (FloatingText[i].DestroyMe) {
+					FloatingText.RemoveAt(i);
+					i--;
+				}
+			}
 		}
 
 		public override void PostUpdate() {
@@ -99,6 +112,11 @@ namespace JingleJam2024
 			}
 			Player.Draw(r, c);
 			MoneyDisplay.Draw(r, c);
+			DoorDisplay.Draw(r, c);
+			LevelDisplay.Draw(r, c);
+			foreach (var t in FloatingText) {
+				t.Draw(r, c);
+			}
 		}
 
 		public override void DrawHitboxes(Renderer r, Camera c) {

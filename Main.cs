@@ -1,4 +1,5 @@
 ﻿using JingleJam2024.entity.player;
+using JingleJam2024.scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -34,19 +35,27 @@ namespace JingleJam2024 {
 			Program.Font = new Font(Content.Load<Texture2D>("rainyhearts"), Font.FontStandard, '?', new Rectangle(0, 3, 1, 1));
 			Program.Sprites.LoadDirectory(Path.Join(Content.RootDirectory, "sprites"));
 			Program.PlayerSprite = Content.Load<Texture2D>("sprites/sleigh");
+			FloatingText.TextRenderer = new Text(Program.Font);
 
-			var tiled = new TiledFile(Content.RootDirectory, "maps/level1.tmx");
-			Program.Scene = new GameScene();
+			Program.Levels.Add(LoadLevel("maps/level0.tmx"));
+			Program.Levels.Add(LoadLevel("maps/level1.tmx"));
+			Program.Scene = Program.Levels[0];
+		}
+
+		private GameScene LoadLevel(string path) {
+			var scene = new GameScene();
+			var tiled = new TiledFile(Content.RootDirectory, path);
 			tiled.TryGetTilemap("graphic", out var tilemap);
-			Program.Scene.GraphicMap = tilemap;
+			scene.GraphicMap = tilemap;
 			tiled.TryGetObjects("spawns", out var spawns);
-			Program.Scene.Spawns = spawns;
+			scene.Spawns = spawns;
 			tiled.TryGetTilemap("mech", out var mech);
-			Program.Scene.MechMap = mech;
+			scene.MechMap = mech;
 			tiled.TryGetTilemap("doors", out var doors);
-			Program.Scene.DoorMap = doors;
+			scene.DoorMap = doors;
 			tiled.TryGetTilemap("floor", out var floor);
-			Program.Scene.FloorMap = floor;
+			scene.FloorMap = floor;
+			return scene;
 		}
 
 		protected override void Init() {

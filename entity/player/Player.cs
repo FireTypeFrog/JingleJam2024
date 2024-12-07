@@ -42,13 +42,19 @@ namespace JingleJam2024.entity.player {
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			Trail.Draw(r, c);
+			bool drawtrailfirst = true;
+			if (Angle > Math.PI) {
+				drawtrailfirst = false;
+			}
+			if (drawtrailfirst)	Trail.Draw(r, c);
 
 			if (GraphicSwap) {
 				Graphic2.Draw(r, c);
 			} else {
 				Graphic1.Draw(r, c);
 			}
+
+			if (!drawtrailfirst) Trail.Draw(r, c);
 
 			Shooter.Draw(r, c);
 		}

@@ -8,17 +8,23 @@ using Toybox;
 using Toybox.utils.text;
 
 namespace JingleJam2024.scene {
-	public class MoneyDisplay {
+	public class LevelDisplay {
 
 		public Text TextRenderer;
 
-		public MoneyDisplay(Font f) {
+		public LevelDisplay(Font f) {
 			TextRenderer = new Text(f);
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			TextRenderer.Content = $"Remaining Funds: ${(int)Program.State.Money}";
-			TextRenderer.Position = new Point((c.Width / 2) - (TextRenderer.GetSize().X / 2), 30);
+			TextRenderer.Content = $"Stage: {Program.State.StageNum}";
+			TextRenderer.Position = new Point(10, 10);
+			TextRenderer.Draw(r.Batch, Color.Black);
+			TextRenderer.Position -= new Point(1, 1);
+			TextRenderer.Draw(r.Batch, Color.White);
+
+			TextRenderer.Content = $"Christmas Cheer: {Program.State.CheerLevel}";
+			TextRenderer.Position = new Point(10, 30);
 			TextRenderer.Draw(r.Batch, Color.Black);
 			TextRenderer.Position -= new Point(1, 1);
 			TextRenderer.Draw(r.Batch, Color.White);

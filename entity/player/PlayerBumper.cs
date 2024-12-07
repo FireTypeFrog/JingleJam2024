@@ -13,8 +13,11 @@ namespace JingleJam2024.entity.player {
 		public int BumpTimer;
 
 		public void Bump(Vector2 speed, Player p) {
-			if (BumpTimer > 0) {
+			if (BumpTimer == 0) {
 				Program.State.Money -= Constants.CarBumpMoneyLoss;
+				var textpos = new Point(p.X, p.Y);
+				textpos.X += (Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale) / 3;
+				Program.Scene.FloatingText.Add(new scene.FloatingText(textpos.X, textpos.Y, "-" + Constants.CarBumpMoneyLoss.ToString(), Color.LightCoral));
 			}
 			BumpTimer = Constants.CarBumpTime;
 

@@ -53,6 +53,11 @@ namespace JingleJam2024.entity.player {
 			var tile = Program.Scene.DoorMap.Get(pos);
 			Program.Scene.DoorMap.Set(pos.X, pos.Y, new Tilemap.Tile(new Point(tile.Value.Id.X + 2, tile.Value.Id.Y), Microsoft.Xna.Framework.Graphics.SpriteEffects.None));
 			Program.State.Money += Constants.DoorMoney;
+			Program.State.DoorsClosed++;
+
+			var textpos = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, pos);
+			textpos.X += (Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale) / 3;
+			Program.Scene.FloatingText.Add(new scene.FloatingText(textpos.X, textpos.Y, "+" + Constants.DoorMoney.ToString(), Color.LightGreen));
 		}
 
 	}
