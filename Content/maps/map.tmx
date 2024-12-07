@@ -81,7 +81,7 @@
   <object id="28" name="car" x="70" y="430" width="10" height="10"/>
   <object id="29" name="car" x="40" y="310" width="10" height="10"/>
  </objectgroup>
- <layer id="4" name="mech" width="50" height="50" opacity="0.5">
+ <layer id="4" name="mech" width="50" height="50" visible="0" opacity="0.5">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
