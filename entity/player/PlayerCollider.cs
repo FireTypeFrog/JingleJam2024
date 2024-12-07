@@ -19,7 +19,7 @@ namespace JingleJam2024.entity.player {
 		public void Move(Player p, Vector2 speed) {
 			if (speed == Vector2.Zero) return;
 
-			var center = new Vector2(p.TrueX, p.TrueY);
+			var center = new Vector2(p.TrueX, p.TrueY + 10);
 			var diameter = HitboxSize + Math.Abs((int)speed.Length()) + 6;
 			var hitbox = new Rectangle((int)center.X - diameter / 2, (int)center.Y - diameter / 2, diameter, diameter);
 			NearCollisions.Clear();
