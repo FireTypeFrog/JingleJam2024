@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Toybox;
+using Toybox.graphic;
 using Toybox.maps.tiles;
 using Toybox.utils;
 using static Toybox.maps.tiles.TilemapCollisions;
@@ -19,12 +20,16 @@ namespace JingleJam2024.entity {
 		public float Angle = 0;
 		public Point Speed;
 		private Point HitboxSize = new Point(2, 2);
+		public static SpriteMap Graphic;
 
 		private Point LastTileCollision;
 		private int TileCollisionShrink = 4;
 
 		public Car(Point pos) {
 			Position = pos;
+			if (Graphic == null) {
+				Graphic = Program.Sprites["car"];
+			}
 		}
 
 		public void Update() {
@@ -44,10 +49,10 @@ namespace JingleJam2024.entity {
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			var dest = new Rectangle(Position.X, Position.Y, Size.X * c.PixelScale, Size.Y * c.PixelScale);
-			var origin = new Vector2((float)r.Blank.Width / 2, (float)r.Blank.Height / 2);
-			dest = c.Project(Camera.Space.Pixel, Camera.Space.Render, dest);
-			r.Batch.Draw(r.Blank, dest, null, Color.White, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+			Graphic.GetDrawRects(0, Position.X, Position.Y, out var source, out var dest);
+			dest = new Rectangle(dest.X, dest.Y, dest.Width * c.PixelScale, dest.Height);
+			var origin = new Vector2((float)dest.Width / 2, (float)dest.Height / 2);
+			r.Batch.Draw(Graphic.Graphic, dest, source, Color.White, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
 		}
 
 		public Rectangle Bounds {
