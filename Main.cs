@@ -36,6 +36,9 @@ namespace JingleJam2024 {
 			Program.Sprites.LoadDirectory(Path.Join(Content.RootDirectory, "sprites"));
 			Program.PlayerSprite = Content.Load<Texture2D>("sprites/sleigh");
 			FloatingText.TextRenderer = new Text(Program.Font);
+			CheerMeter.TextRenderer = new Text(Program.Font);
+			Player.Shadow = Content.Load<Texture2D>("sprites/shadow");
+			Program.CompleteMessage = new GameCompleteMessage(Program.Font);
 
 			Program.Levels.Add(LoadLevel("maps/level0.tmx"));
 			Program.Levels.Add(LoadLevel("maps/level1.tmx"));

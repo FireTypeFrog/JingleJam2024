@@ -22,6 +22,7 @@ namespace JingleJam2024.entity.player {
 		}
 
 		public void Update(Player p) {
+			MaxLength = Program.State.CheerLevel;
 			PickupZonePos = new Point(p.X - PickupSize.X / 2, p.Y - PickupSize.Y / 2);
 			var pickup = Program.Scene.Spawner.FindCollision(new Rectangle(PickupZonePos, PickupSize));
 			if (pickup != null) {

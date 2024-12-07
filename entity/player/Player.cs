@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace JingleJam2024.entity.player {
 		public PlayerBumper Bumper = new();
 		public PlayerGraphic1 Graphic1;
 		public PlayerGraphic2 Graphic2;
+		public static Texture2D Shadow;
+		private Point ShadowPos;
+		private Point StartingPos;
 
 		public bool GraphicSwap = true;
 
@@ -42,6 +46,12 @@ namespace JingleJam2024.entity.player {
 		}
 
 		public void Draw(Renderer r, Camera c) {
+			if (Program.Scene.StageComplete || Program.Scene.StageStarting) {
+				var source = Shadow.Bounds;
+				var dest = new Rectangle(ShadowPos.X, ShadowPos.Y, source.Width * c.PixelScale, source.Height * c.PixelScale);
+				r.Draw(Shadow, dest, source, Color.White, c, Camera.Space.Pixel, SpriteEffects.None);
+			}
+
 			bool drawtrailfirst = true;
 			if (Angle > Math.PI) {
 				drawtrailfirst = false;
@@ -60,6 +70,31 @@ namespace JingleJam2024.entity.player {
 		}
 
 		public void Update() {
+			if (Program.Scene.StageComplete) {
+				if (ShadowPos == Point.Zero) {
+					ShadowPos = BumpHitbox.Location - new Point(5 * Resources.Camera.PixelScale);
+				}
+				Angle += 0.2f;
+				Speed = new Vector2(0, Speed.Y - 0.1f);
+				Y += (int)Speed.Y;
+				return;
+			} else if (Program.Scene.StageStarting) {
+				if (ShadowPos == Point.Zero) {
+					ShadowPos = BumpHitbox.Location - new Point(5 * Resources.Camera.PixelScale);
+					StartingPos = new Point(X, Y);
+					Y = Program.Scene.CamBounds.Y - 20;
+				}
+				Angle += 0.2f;
+				Speed = new Vector2(0, 6);
+				Y += (int)Speed.Y;
+				if (Y >= StartingPos.Y) {
+					ShadowPos = Point.Zero;
+					Program.Scene.StageStarting = false;
+					Speed = Vector2.Zero;
+				}
+				return;
+			}
+
 			Controller.Update(this);
 			Collider.Move(this, Speed);
 			Trail.Update(this);

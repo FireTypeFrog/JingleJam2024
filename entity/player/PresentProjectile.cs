@@ -58,6 +58,10 @@ namespace JingleJam2024.entity.player {
 			var textpos = Resources.Camera.Project(Camera.Space.Scaled, Camera.Space.Pixel, pos);
 			textpos.X += (Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale) / 3;
 			Program.Scene.FloatingText.Add(new scene.FloatingText(textpos.X, textpos.Y, "+" + Constants.DoorMoney.ToString(), Color.LightGreen));
+
+			if (Program.State.DoorsClosed >= Program.State.AllDoors) {
+				Program.Scene.StageComplete = true;
+			}
 		}
 
 	}

@@ -31,6 +31,12 @@ namespace JingleJam2024
 		public List<Car> Cars = new();
 		public List<FloatingText> FloatingText = new();
 
+		public bool StageComplete = false;
+		public bool StageStarting = true;
+		public bool FadingOut = false;
+		public bool FadingIn = true;
+		public float FadeOpacity = 1;
+
 		public GameScene() {
 			Player = new Player();
 			MoneyDisplay = new MoneyDisplay(Program.Font);
@@ -67,6 +73,30 @@ namespace JingleJam2024
 		}
 
 		public override void Update() {
+			if (Program.State.GameComplete) {
+				Program.CompleteMessage.Update();
+				return;
+			}
+
+			if (FadingIn) {
+				FadeOpacity -= 0.05f;
+				if (FadeOpacity <= 0) {
+					FadeOpacity = 0;
+					FadingIn = false;
+				}
+			}
+			if (StageComplete) {
+				Program.State.CheerMeter.Update();
+				if (Program.State.Money <= 0) {
+					FadingOut = true;
+					FadeOpacity += 0.05f;
+					if (FadeOpacity > 1) {
+						FadeOpacity = 1;
+						Program.NextStage();
+					}
+				}
+			}
+
 			Player.Update();
 			Spawner.Update();
 			foreach (var c in Cars) {
@@ -116,6 +146,18 @@ namespace JingleJam2024
 			LevelDisplay.Draw(r, c);
 			foreach (var t in FloatingText) {
 				t.Draw(r, c);
+			}
+
+			if (StageComplete) {
+				Program.State.CheerMeter.Draw(r, c);
+			}
+
+			if (FadingIn || FadingOut) {
+				r.DrawRect(new Rectangle(0, 0, c.ScreenWidth, c.ScreenHeight), Color.Black * FadeOpacity, c, Camera.Space.Render);
+			}
+
+			if (Program.State.GameComplete) {
+				Program.CompleteMessage.Draw(r, c);
 			}
 		}
 
