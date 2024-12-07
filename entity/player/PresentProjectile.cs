@@ -14,16 +14,18 @@ namespace JingleJam2024.entity.player {
 		public Point Size = new Point(4, 4);
 		public Vector2 Speed;
 		public bool DestroyMe = false;
+		public PresentGraphic Graphic;
 
-		public PresentProjectile(Point start, Point target, float speed) {
+		public PresentProjectile(Point start, Point target, float speed, PresentGraphic graphic) {
 			Pos = new Vector2(start.X, start.Y);
 			Speed = (target - start).ToVector2();
 			Speed.Normalize();
 			Speed *= speed;
+			Graphic = graphic;
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			r.DrawRect(new Rectangle(Pos.ToPoint(), Size), Color.White, c, Camera.Space.Pixel);
+			Graphic.Draw(r, c, (int)Pos.X, (int)Pos.Y);
 		}
 
 		public void Update() {

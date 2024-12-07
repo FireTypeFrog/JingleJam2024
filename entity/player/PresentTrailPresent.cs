@@ -16,17 +16,19 @@ namespace JingleJam2024.entity.player {
 		private int TweenTimer = 0;
 		private Point TweenStart;
 		public bool DestroyMe = false;
+		public PresentGraphic Graphic;
 
 		private static StaticTween Tween = new StaticTween(EasingFunctions.InOutBounce, 30);
 
-		public PresentTrailPresent(Point pos) {
+		public PresentTrailPresent(Point pos, PresentGraphic graphic) {
 			TweenStart = pos;
 			X = pos.X;
 			Y = pos.Y;
+			Graphic = graphic;
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			r.DrawRect(new Rectangle(X, Y, Size, Size), Color.White, c, Camera.Space.Pixel);
+			Graphic.Draw(r, c, X, Y);
 		}
 
 		public void Update(Point target) {

@@ -60,7 +60,7 @@ namespace JingleJam2024.entity.player {
 			if (Content.Count >= MaxLength) return;
 
 			p.DestroyMe = true;
-			Content.Add(new PresentTrailPresent(new Point(p.X, p.Y)));
+			Content.Add(new PresentTrailPresent(new Point(p.X, p.Y), p.Graphic));
 		}
 
 		public void Draw(Renderer r, Camera c) {
