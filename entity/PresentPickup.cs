@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toybox;
+using Toybox.graphic;
 
 namespace JingleJam2024.entity {
 
@@ -14,10 +15,15 @@ namespace JingleJam2024.entity {
 
 		public int X, Y;
 		public bool DestroyMe = false;
+		public PresentGraphic Graphic;
+
+		public PresentPickup() {
+			Graphic = new PresentGraphic();
+		}
 
 		public void Draw(Renderer r, Camera c) {
 			if (DestroyMe) return;
-			r.DrawRect(new Rectangle(X, Y, Size, Size), Color.White, c, Camera.Space.Pixel);
+			Graphic.Draw(r, c, X, Y);
 		}
 
 		public Rectangle Bounds {

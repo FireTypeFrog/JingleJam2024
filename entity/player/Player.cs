@@ -29,7 +29,7 @@ namespace JingleJam2024.entity.player {
 		public PlayerGraphic1 Graphic1;
 		public PlayerGraphic2 Graphic2;
 
-		public bool GraphicSwap = false;
+		public bool GraphicSwap = true;
 
 		public Player() {
 			Graphic1 = new PlayerGraphic1(this);

@@ -40,7 +40,7 @@ namespace JingleJam2024.entity.player {
 			if (p.Trail.Content.Count == 0) return;
 
 			p.Trail.Content[0].DestroyMe = true;
-			var present = new PresentProjectile(new Point(p.X, p.Y), pos, ProjectileSpeed);
+			var present = new PresentProjectile(new Point(p.X, p.Y), pos, ProjectileSpeed, p.Trail.Content[0].Graphic);
 			Content.Add(present);
 		}
 
