@@ -41,9 +41,12 @@ namespace JingleJam2024
 					Park = new PresentSpawner(spawn.Bounds);
 					continue;
 				} else if (spawn.Name == "car") {
-					Cars.Add(new Car(spawn.Position));
+					//Cars.Add(new Car(spawn.Position));
 				}
 			}
+
+			var carSpawner = new CarSpawner();
+			carSpawner.SpawnCars(this, 50);
 
 			foreach (var car in Cars) {
 				car.Init();

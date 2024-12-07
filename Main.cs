@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JingleJam2024.entity.player;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
@@ -17,6 +18,7 @@ namespace JingleJam2024 {
 			Program.Input.Add(GameControl.Right, new VirtualKey(Keys.D, Keys.Right));
 			Program.Input.Add(GameControl.Up, new VirtualKey(Keys.W, Keys.Up));
 			Program.Input.Add(GameControl.Down, new VirtualKey(Keys.S, Keys.Down));
+			Program.Input.Add(GameControl.SwapGraphic, new VirtualKey(Keys.F5));
 			IsFixedTimeStep = true;
         }
 
@@ -31,6 +33,7 @@ namespace JingleJam2024 {
 
 			Program.Font = new Font(Content.Load<Texture2D>("rainyhearts"), Font.FontStandard, '?', new Rectangle(0, 3, 1, 1));
 			Program.Sprites.LoadDirectory(Path.Join(Content.RootDirectory, "sprites"));
+			Program.PlayerSprite = Content.Load<Texture2D>("sprites/sleigh");
 
 			var tiled = new TiledFile(Content.RootDirectory, "maps/map.tmx");
 			Program.Scene = new GameScene();

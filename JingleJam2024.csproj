@@ -25,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\maps\" />
-    <Folder Include="Content\sprites\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\maps\map.tmx">

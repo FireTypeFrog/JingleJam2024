@@ -4,7 +4,7 @@ using Toybox.components;
 
 namespace JingleJam2024 {
 	public enum GameControl {
-		Left, Right, Up, Down
+		Left, Right, Up, Down, SwapGraphic
 	}
 
 	public enum CollisionType {
