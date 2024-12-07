@@ -25,17 +25,26 @@ namespace JingleJam2024.entity.player {
 		public PresentTrail Trail = new();
 		public PresentShooter Shooter = new();
 		public PlayerBumper Bumper = new();
+		public PlayerGraphic Graphic;
 
 		public Player() {
+			Graphic = new PlayerGraphic(this);
+		}
+
+		public void Init() {
+			Graphic.Init();
 		}
 
 		public void Draw(Renderer r, Camera c) {
 			Trail.Draw(r, c);
 
+			/*
 			var dest = new Rectangle(X, Y, Size.X * c.PixelScale, Size.Y * c.PixelScale);
 			var origin = new Vector2((float)r.Blank.Width / 2, (float)r.Blank.Height / 2);
 			dest = c.Project(Camera.Space.Pixel, Camera.Space.Render, dest);
 			r.Batch.Draw(r.Blank, dest, null, Color.White, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+			*/
+			Graphic.Draw(r, c);
 
 			Shooter.Draw(r, c);
 		}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 using Toybox;
 using Toybox.rendermodels;
 using Toybox.scenes;
@@ -29,7 +30,8 @@ namespace JingleJam2024 {
 			Camera = new Camera(GraphicsDevice, new Fit(630, 340), 3) { ClearColor = new Color(0, 0, 0) };
 
 			Program.Font = new Font(Content.Load<Texture2D>("rainyhearts"), Font.FontStandard, '?', new Rectangle(0, 3, 1, 1));
-			
+			Program.Sprites.LoadDirectory(Path.Join(Content.RootDirectory, "sprites"));
+
 			var tiled = new TiledFile(Content.RootDirectory, "maps/map.tmx");
 			Program.Scene = new GameScene();
 			tiled.TryGetTilemap("graphic", out var tilemap);

@@ -48,6 +48,8 @@ namespace JingleJam2024
 			foreach (var car in Cars) {
 				car.Init();
 			}
+
+			Player.Init();
 		}
 
 		public override void Update() {
