@@ -34,7 +34,7 @@ namespace JingleJam2024.entity {
 
 		public void Update() {
 			Position += Speed;
-			Angle = (float)Math.Atan2(Speed.Y, Speed.X);
+			//Angle = (float)Math.Atan2(Speed.Y, Speed.X);
 
 			var tile = GetTileCollision();
 			CollideTile(tile);
@@ -51,7 +51,7 @@ namespace JingleJam2024.entity {
 		public void Draw(Renderer r, Camera c) {
 			Graphic.GetDrawRects(0, Position.X, Position.Y, out var source, out var dest);
 			dest = new Rectangle(dest.X, dest.Y, dest.Width * c.PixelScale, dest.Height * c.PixelScale);
-			var origin = new Vector2((float)source.Width / 2, (float)source.Height / 2);
+			var origin = new Vector2(source.Width / 2, source.Height / 2);
 			dest = c.Project(Camera.Space.Pixel, Camera.Space.Render, dest);
 			r.Batch.Draw(Graphic.Graphic, dest, source, Color.White, Angle, origin, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
 		}
@@ -133,30 +133,42 @@ namespace JingleJam2024.entity {
 
 		private void GoUp() {
 			Speed = new Point(0, -Constants.CarSpeed);
-			Angle = (float)(Math.PI / 2);
+			Angle = (float)(Math.PI + Math.PI / 2);
+			if (Direction != Direction.Up && Direction != Direction.Down) {
+				int gridsize = Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale;
+				Position.X = (int)(Math.Floor((float)Position.X / gridsize) * gridsize) + (gridsize / 2);
+			}
 			Direction = Direction.Up;
-			Position.X = ((int)Math.Floor((float)Position.X / Program.Scene.MechMap.TileWidth) * Program.Scene.MechMap.TileWidth) + (Program.Scene.MechMap.TileWidth / 2);
 		}
 
 		private void GoDown() {
 			Speed = new Point(0, Constants.CarSpeed);
-			Angle = (float)(Math.PI + Math.PI / 2);
+			Angle = (float)(Math.PI / 2);
+			if (Direction != Direction.Up && Direction != Direction.Down) {
+				int gridsize = Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale;
+				Position.X = (int)(Math.Floor((float)Position.X / gridsize) * gridsize) + (gridsize / 2);
+			}
 			Direction = Direction.Down;
-			Position.Y = ((int)Math.Floor((float)Position.Y / Program.Scene.MechMap.TileHeight) * Program.Scene.MechMap.TileHeight) + (Program.Scene.MechMap.TileHeight / 2);
 		}
 
 		private void GoLeft() {
 			Speed = new Point(-Constants.CarSpeed, 0);
 			Angle = (float)(Math.PI);
+			if (Direction != Direction.Left && Direction != Direction.Right) {
+				int gridsize = Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale;
+				Position.Y = (int)(Math.Floor((float)Position.Y / gridsize) * gridsize) + (gridsize / 2);
+			}
 			Direction = Direction.Left;
-			Position.Y = ((int)Math.Floor((float)Position.Y / Program.Scene.MechMap.TileHeight) * Program.Scene.MechMap.TileHeight) + (Program.Scene.MechMap.TileHeight / 2);
 		}
 
 		private void GoRight() {
 			Speed = new Point(Constants.CarSpeed, 0);
 			Angle = 0;
+			if (Direction != Direction.Left && Direction != Direction.Right) {
+				int gridsize = Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale;
+				Position.Y = (int)(Math.Floor((float)Position.Y / gridsize) * gridsize) + (gridsize / 2);
+			}
 			Direction = Direction.Right;
-			Position.X = ((int)Math.Floor((float)Position.X / Program.Scene.MechMap.TileWidth) * Program.Scene.MechMap.TileWidth) + (Program.Scene.MechMap.TileWidth / 2);
 		}
 
 		public void DrawHitbox(Renderer r, Camera c) {
