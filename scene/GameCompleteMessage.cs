@@ -44,9 +44,9 @@ namespace JingleJam2024.scene {
 
 			TextRenderer.Content = $"Merry Christmas Shitlords :)";
 			TextRenderer.Position = new Point(c.Width / 3, 140);
-			TextRenderer.Draw(r.Batch, Color.Black * Text3);
+			TextRenderer.Draw(r.Batch, Color.Black * Text4);
 			TextRenderer.Position -= new Point(1, 1);
-			TextRenderer.Draw(r.Batch, Color.White * Text3);
+			TextRenderer.Draw(r.Batch, Color.White * Text4);
 		}
 
 		public void Update() {
