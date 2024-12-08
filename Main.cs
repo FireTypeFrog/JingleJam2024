@@ -1,8 +1,10 @@
 ﻿using JingleJam2024.entity.player;
 using JingleJam2024.scene;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.IO;
 using Toybox;
 using Toybox.rendermodels;
@@ -43,16 +45,26 @@ namespace JingleJam2024 {
 			GameScene.GameOverMessage = new GameOver(Program.Font);
 			TutorialText.Graphic = Content.Load<Texture2D>("sprites/arrow");
 			TutorialText.TextRenderer = new Text(Program.Font);
+			TitleScreen.TextRenderer = new Text(Program.Font);
 
 			Program.Levels.Add("maps/level0.tmx");
 			Program.Levels.Add("maps/level1.tmx");
 			Program.Levels.Add("maps/level2.tmx");
 			Program.Levels.Add("maps/level3.tmx");
 			Program.LoadStage(Program.Levels[0]);
+
+			SoundPlayer.Music = Content.Load<Song>("music/ChristmasTime");
+			SoundPlayer.Bump = Content.Load<SoundEffect>("music/bump");
+			SoundPlayer.Gameover = Content.Load<SoundEffect>("music/gameover");
+			SoundPlayer.Pickup = Content.Load<SoundEffect>("music/pickup");
+			SoundPlayer.Spin = Content.Load<SoundEffect>("music/spin");
+			SoundPlayer.Target = Content.Load<SoundEffect>("music/target");
+			SoundPlayer.Win = Content.Load<SoundEffect>("music/win");
 		}
 
 		protected override void Init() {
 			Program.Scene.Init();
+			SoundPlayer.Init();
 		}
 
 		protected override void UpdateInputManager(MouseState m, KeyboardState k) {

@@ -22,6 +22,8 @@ public static class Program {
 	public static List<string> Levels = new();
 	public static GameCompleteMessage CompleteMessage;
 	public static TutorialText Tutorial = new();
+	public static TitleScreen TitleScreen = new();
+	public static bool ShowTitle = true;
 
 	private static void Main(string[] args) {
 		using var game = new JingleJam2024.Main();

@@ -15,6 +15,7 @@ namespace JingleJam2024.scene {
 		private float Text1 = 0;
 		private float Text2 = 0;
 		private float Text3 = 0;
+		private float Text4 = 0;
 		private int Timer = 0;
 		private float FadeRate = 0.05f;
 
@@ -40,6 +41,12 @@ namespace JingleJam2024.scene {
 			TextRenderer.Draw(r.Batch, Color.Black * Text3);
 			TextRenderer.Position -= new Point(1, 1);
 			TextRenderer.Draw(r.Batch, Color.White * Text3);
+
+			TextRenderer.Content = $"Merry Christmas Shitlords :)";
+			TextRenderer.Position = new Point(c.Width / 3, 140);
+			TextRenderer.Draw(r.Batch, Color.Black * Text3);
+			TextRenderer.Position -= new Point(1, 1);
+			TextRenderer.Draw(r.Batch, Color.White * Text3);
 		}
 
 		public void Update() {
@@ -53,6 +60,10 @@ namespace JingleJam2024.scene {
 				Timer++;
 			} else if (Text3 < 1) {
 				Text3 += FadeRate;
+			} else if (Timer < 120) {
+				Timer++;
+			} else if (Text4 < 1) {
+				Text4 += FadeRate;
 			}
 		}
 

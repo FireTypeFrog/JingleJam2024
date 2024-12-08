@@ -61,6 +61,48 @@
 /processorParam:TextureFormat=Color
 /build:maps/tiles.png
 
+#begin music/bump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/bump.wav
+
+#begin music/ChristmasTime.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/ChristmasTime.mp3
+
+#begin music/gameover.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/gameover.wav
+
+#begin music/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/pickup.wav
+
+#begin music/spin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/spin.wav
+
+#begin music/target.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/target.wav
+
+#begin music/win.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:music/win.wav
+
 #begin rainyhearts.png
 /importer:TextureImporter
 /processor:TextureProcessor

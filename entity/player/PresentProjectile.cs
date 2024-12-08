@@ -37,6 +37,7 @@ namespace JingleJam2024.entity.player {
 					}
 					if (c.Tile.Id == Constants.TargetTile) {
 						HitTarget(c.Bounds.Location);
+						SoundPlayer.Target.Play();
 					}
 				}
 			}
@@ -61,6 +62,7 @@ namespace JingleJam2024.entity.player {
 
 			if (Program.State.DoorsClosed >= Program.State.AllDoors) {
 				Program.Scene.StageComplete = true;
+				SoundPlayer.Win.Play();
 			}
 		}
 

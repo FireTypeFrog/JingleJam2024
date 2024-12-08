@@ -63,6 +63,7 @@ namespace JingleJam2024.entity.player {
 
 			p.DestroyMe = true;
 			Content.Add(new PresentTrailPresent(new Point(p.X, p.Y), p.Graphic));
+			SoundPlayer.Pickup.Play();
 		}
 
 		public void Draw(Renderer r, Camera c) {

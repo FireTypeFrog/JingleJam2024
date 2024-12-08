@@ -14,12 +14,17 @@ namespace JingleJam2024.entity.player {
 
 		public void Bump(Vector2 speed, Player p) {
 			if (Program.Scene.StageComplete) return;
+			if (Program.Scene.StageStarting) return;
 
+			if (BumpTimer < 40) {
+				SoundPlayer.Bump.Play();
+			}
 			if (BumpTimer == 0) {
 				Program.State.Money -= Constants.CarBumpMoneyLoss;
 				var textpos = new Point(p.X, p.Y);
 				textpos.X += (Program.Scene.MechMap.TileWidth * Resources.Camera.PixelScale) / 3;
 				Program.Scene.FloatingText.Add(new scene.FloatingText(textpos.X, textpos.Y, "-" + Constants.CarBumpMoneyLoss.ToString(), Color.LightCoral));
+				SoundPlayer.Spin.Play();
 			}
 			BumpTimer = Constants.CarBumpTime;
 

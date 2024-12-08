@@ -71,7 +71,7 @@ namespace JingleJam2024
 			} else if (Program.State.StageNum == 2) {
 				carSpawner.SpawnCars(this, 50);
 			} else if (Program.State.StageNum == 3) {
-				carSpawner.SpawnCars(this, 60);
+				carSpawner.SpawnCars(this, 80);
 			}
 
 			foreach (var car in Cars) {
@@ -83,6 +83,11 @@ namespace JingleJam2024
 		}
 
 		public override void Update() {
+			if (Program.ShowTitle) {
+				Program.TitleScreen.Update();
+				return;
+			}
+
 			if (GameOver) {
 				GameOverMessage.Update();
 				return;
@@ -136,8 +141,9 @@ namespace JingleJam2024
 
 			if (!StageComplete && !FadingIn && !FadingOut && !Program.State.GameComplete) {
 				Program.State.Money -= Constants.MoneyLossPerTick;
-				if (Program.State.Money <= 0) {
+				if (Program.State.Money <= 0 && GameOver != true) {
 					GameOver = true;
+					SoundPlayer.Gameover.Play();
 				}
 			}
 
@@ -156,6 +162,11 @@ namespace JingleJam2024
 		}
 
 		public override void Draw(Renderer r, Camera c) {
+			if (Program.ShowTitle) {
+				Program.TitleScreen.Draw(r, c);
+				return;
+			}
+
 			FloorMap.Draw(r, c);
 			GraphicMap.Draw(r, c);
 			DoorMap.Draw(r, c);
