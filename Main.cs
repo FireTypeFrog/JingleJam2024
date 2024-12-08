@@ -20,6 +20,7 @@ namespace JingleJam2024 {
 			Program.Input.Add(GameControl.Up, new VirtualKey(Keys.W, Keys.Up));
 			Program.Input.Add(GameControl.Down, new VirtualKey(Keys.S, Keys.Down));
 			Program.Input.Add(GameControl.SwapGraphic, new VirtualKey(Keys.F5));
+			Program.Input.Add(GameControl.Enter, new VirtualKey(Keys.Enter));
 			IsFixedTimeStep = true;
         }
 
@@ -39,26 +40,15 @@ namespace JingleJam2024 {
 			CheerMeter.TextRenderer = new Text(Program.Font);
 			Player.Shadow = Content.Load<Texture2D>("sprites/shadow");
 			Program.CompleteMessage = new GameCompleteMessage(Program.Font);
+			GameScene.GameOverMessage = new GameOver(Program.Font);
+			TutorialText.Graphic = Content.Load<Texture2D>("sprites/arrow");
+			TutorialText.TextRenderer = new Text(Program.Font);
 
-			Program.Levels.Add(LoadLevel("maps/level0.tmx"));
-			Program.Levels.Add(LoadLevel("maps/level1.tmx"));
-			Program.Scene = Program.Levels[0];
-		}
-
-		private GameScene LoadLevel(string path) {
-			var scene = new GameScene();
-			var tiled = new TiledFile(Content.RootDirectory, path);
-			tiled.TryGetTilemap("graphic", out var tilemap);
-			scene.GraphicMap = tilemap;
-			tiled.TryGetObjects("spawns", out var spawns);
-			scene.Spawns = spawns;
-			tiled.TryGetTilemap("mech", out var mech);
-			scene.MechMap = mech;
-			tiled.TryGetTilemap("doors", out var doors);
-			scene.DoorMap = doors;
-			tiled.TryGetTilemap("floor", out var floor);
-			scene.FloorMap = floor;
-			return scene;
+			Program.Levels.Add("maps/level0.tmx");
+			Program.Levels.Add("maps/level1.tmx");
+			Program.Levels.Add("maps/level2.tmx");
+			Program.Levels.Add("maps/level3.tmx");
+			Program.LoadStage(Program.Levels[0]);
 		}
 
 		protected override void Init() {

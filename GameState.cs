@@ -14,11 +14,13 @@ namespace JingleJam2024 {
 		public int DoorsClosed;
 		public int AllDoors;
 		public int StageNum = 0;
-		public int CheerLevel = 3;
+		public int CheerLevel = 1;
 
 		public CheerMeter CheerMeter = new();
 
 		public bool GameComplete = false;
+
+		public bool ShowTutorial = true;
 
 	}
 }

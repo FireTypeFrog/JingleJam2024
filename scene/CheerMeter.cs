@@ -11,7 +11,7 @@ namespace JingleJam2024.scene {
 	public class CheerMeter {
 
 		public Point Size = new Point(100, 10);
-		public const int CheerCost = 30;
+		public const int CheerCost = 50;
 		public static Text TextRenderer;
 
 		public int MoneySpent = 0;

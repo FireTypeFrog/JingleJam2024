@@ -4,7 +4,7 @@ using Toybox.components;
 
 namespace JingleJam2024 {
 	public enum GameControl {
-		Left, Right, Up, Down, SwapGraphic
+		Left, Right, Up, Down, SwapGraphic, Enter
 	}
 
 	public enum CollisionType {
@@ -38,8 +38,8 @@ namespace JingleJam2024 {
 		public static Point DownRightTile = new Point(3, 2);
 
 		public const int DoorMoney = 10;
-		public const float MoneyLossPerTick = 0.01f;
-		public const int CarBumpMoneyLoss = 5;
+		public const float MoneyLossPerTick = 0.03f;
+		public const int CarBumpMoneyLoss = 10;
 
 		public const int CarSpeed = 2;
 		public const int CarBumpTime = 50;

@@ -17,7 +17,7 @@ namespace JingleJam2024.scene {
 		}
 
 		public void Draw(Renderer r, Camera c) {
-			TextRenderer.Content = $"Stage: {Program.State.StageNum}";
+			TextRenderer.Content = $"Stage: {Program.State.StageNum + 1}";
 			TextRenderer.Position = new Point(10, 10);
 			TextRenderer.Draw(r.Batch, Color.Black);
 			TextRenderer.Position -= new Point(1, 1);

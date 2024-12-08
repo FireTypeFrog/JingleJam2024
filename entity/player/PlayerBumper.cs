@@ -13,6 +13,8 @@ namespace JingleJam2024.entity.player {
 		public int BumpTimer;
 
 		public void Bump(Vector2 speed, Player p) {
+			if (Program.Scene.StageComplete) return;
+
 			if (BumpTimer == 0) {
 				Program.State.Money -= Constants.CarBumpMoneyLoss;
 				var textpos = new Point(p.X, p.Y);

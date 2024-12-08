@@ -30,12 +30,14 @@ namespace JingleJam2024
 		public LevelDisplay LevelDisplay;
 		public List<Car> Cars = new();
 		public List<FloatingText> FloatingText = new();
+		public static GameOver GameOverMessage;
 
 		public bool StageComplete = false;
 		public bool StageStarting = true;
 		public bool FadingOut = false;
 		public bool FadingIn = true;
 		public float FadeOpacity = 1;
+		public bool GameOver = false;
 
 		public GameScene() {
 			Player = new Player();
@@ -62,7 +64,15 @@ namespace JingleJam2024
 			}
 
 			var carSpawner = new CarSpawner();
-			carSpawner.SpawnCars(this, 50);
+			if (Program.State.StageNum == 0) {
+				carSpawner.SpawnCars(this, 15);
+			} else if (Program.State.StageNum == 1) {
+				carSpawner.SpawnCars(this, 30);
+			} else if (Program.State.StageNum == 2) {
+				carSpawner.SpawnCars(this, 50);
+			} else if (Program.State.StageNum == 3) {
+				carSpawner.SpawnCars(this, 60);
+			}
 
 			foreach (var car in Cars) {
 				car.Init();
@@ -73,6 +83,11 @@ namespace JingleJam2024
 		}
 
 		public override void Update() {
+			if (GameOver) {
+				GameOverMessage.Update();
+				return;
+			}
+
 			if (Program.State.GameComplete) {
 				Program.CompleteMessage.Update();
 				return;
@@ -89,7 +104,7 @@ namespace JingleJam2024
 				Program.State.CheerMeter.Update();
 				if (Program.State.Money <= 0) {
 					FadingOut = true;
-					FadeOpacity += 0.05f;
+					FadeOpacity += 0.02f;
 					if (FadeOpacity > 1) {
 						FadeOpacity = 1;
 						Program.NextStage();
@@ -119,7 +134,13 @@ namespace JingleJam2024
 				cam.Y = CamBounds.Bottom - cam.Bounds.Height;
 			}
 
-			Program.State.Money -= Constants.MoneyLossPerTick;
+			if (!StageComplete && !FadingIn && !FadingOut && !Program.State.GameComplete) {
+				Program.State.Money -= Constants.MoneyLossPerTick;
+				if (Program.State.Money <= 0) {
+					GameOver = true;
+				}
+			}
+
 			for (int i = 0; i < FloatingText.Count; i++) {
 				FloatingText[i].Update();
 				if (FloatingText[i].DestroyMe) {
@@ -127,6 +148,8 @@ namespace JingleJam2024
 					i--;
 				}
 			}
+
+			Program.Tutorial.Update();
 		}
 
 		public override void PostUpdate() {
@@ -159,6 +182,12 @@ namespace JingleJam2024
 			if (Program.State.GameComplete) {
 				Program.CompleteMessage.Draw(r, c);
 			}
+
+			if (GameOver) {
+				GameOverMessage.Draw(r, c);
+			}
+
+			Program.Tutorial.Draw(r, c);
 		}
 
 		public override void DrawHitboxes(Renderer r, Camera c) {
